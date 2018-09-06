@@ -37,17 +37,25 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
+                <h1><a href="/">My Cake Site</a></h1>
             </li>
         </ul>
         <div class="top-bar-section">
             <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
+                <li><a href="/articles">Articles</a></li>
+                <li><a href="/users/users">Users</a></li>
+                <?php if($session->check('Auth.User.id')): ?>
+                    <li><a href="/users/users/logout">Logout</a></li>
+                <?php else: ?>
+                    <li><a href="/users/users/login">Login</a></li>
+                <?php endif; ?>
+
+
             </ul>
         </div>
     </nav>
     <?= $this->Flash->render() ?>
+    
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
     </div>

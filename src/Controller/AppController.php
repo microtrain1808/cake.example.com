@@ -28,6 +28,8 @@ use Cake\Event\Event;
 class AppController extends Controller
 {
 
+    protected $session;
+
     /**
      * Initialization hook method.
      *
@@ -40,16 +42,26 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
-
+        $this->loadComponent('Auth');
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        $this->loadComponent('CakeDC/Users.UsersAuth');
 
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+
+        $this->session = $this->getRequest()->getSession();
+
+        
+
+    }
+
+    public function beforeRender(Event $event){
+        $this->set('session', $this->session);
     }
 }
